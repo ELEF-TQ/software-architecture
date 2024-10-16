@@ -12,16 +12,11 @@ public class WarSimulationTest {
     {
         KingDom kingdom = new KingDomBuilder().addKing("Youness")
                 .addCountry("France", "20", "100", "50", "200", "100", "100")
-                // (name, nbrOfSoldiersInCity1,
-                // nbrOfCitizenInCity1, .....)
                 .addCountry("Spain", "30", "200", "40", "300")
                 .build();
 
         Assert.assertEquals("Youness:|F:<Fc1:20-100,Fc2:50-200,Fc3:100-100>, S:<Sc1:30-200,Sc2:40-300>|",
                 kingdom.report());
-        // NF : the first Lettre of the king's name + the first lettre of the
-        // CountryName
-        // Fc1 : the presentation of the first city in France
     }
 
     /************
@@ -99,7 +94,7 @@ public class WarSimulationTest {
         Assert.assertEquals(70, kingdom2.currentPower());
     }
 
-/*
+
     @Test
     public void aKingDomCanAttackAttackAnOther()
     {
@@ -146,6 +141,6 @@ public class WarSimulationTest {
         Assert.assertEquals("GOOD", kingdom1.peopleMood());
         Assert.assertEquals("BAD", kingdom2.peopleMood());
     }
-*/
+
 
 }

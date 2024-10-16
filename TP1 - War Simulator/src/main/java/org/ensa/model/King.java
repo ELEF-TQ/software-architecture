@@ -4,16 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class City {
+public class King {
+    private String name;
 
-    private int soldiers;
-    private int citizens ;
-
+    @Override
+    public String toString() {
+        return name;
+    }
 
 
 }
