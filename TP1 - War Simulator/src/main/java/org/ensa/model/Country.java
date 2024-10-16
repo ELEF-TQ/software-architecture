@@ -22,8 +22,12 @@ public class Country {
                 .map(city -> city.report(countryInitial, cities.indexOf(city)))
                 .collect(Collectors.joining(","));
 
-        return String.format("%s:<%s>", countryInitial, cityReports);
+        // Return just the city reports without adding any additional formatting
+        return String.format("<%s>", cityReports); // This returns the formatted cities report
     }
+
+
+
 
 
 }

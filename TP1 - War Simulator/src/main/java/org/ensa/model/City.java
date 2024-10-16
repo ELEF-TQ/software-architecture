@@ -18,6 +18,7 @@ public class City {
         return String.format("%s:%s-%s", countryInitial + "c" + (cityIndex + 1), soldiers, citizens);
     }
 
+
     @Override
     public String toString() {
         return "c:" + soldiers + "-" + citizens;

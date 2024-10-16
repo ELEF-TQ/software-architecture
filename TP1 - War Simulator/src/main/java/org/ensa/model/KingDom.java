@@ -25,7 +25,19 @@ public class KingDom {
 
     public String report() {
         String countryReports = countries.stream()
-                .map(Country::report)
+                .map(country -> {
+                    // Call country.report() which returns the formatted city reports
+                    String report = country.report();
+                    // Use the first character of the country name
+                    String formattedReport = String.format("%s:%s", country.getName().charAt(0), report);
+
+                    // Append soldiers on edges if applicable
+                    if (soldiersOnEdges > 0) {
+                        formattedReport += String.format("-%d", soldiersOnEdges);
+                    }
+
+                    return formattedReport;
+                })
                 .collect(Collectors.joining(", "));
 
         return String.format("%s:|%s|", king, countryReports);
@@ -35,15 +47,22 @@ public class KingDom {
 
 
 
+
     public int currentPower() {
-        int totalPower = soldiersOnEdges;
+        int totalPower = 0; // Start with zero
+
+        // Add soldiers from each country and its cities
         for (Country country : countries) {
             for (City city : country.getCities()) {
-                totalPower += city.getSoldiers();
+                totalPower += city.getSoldiers(); // Only add city soldiers
             }
         }
-        return totalPower;
+
+        return totalPower; // Return the correctly calculated total power (now just city soldiers)
     }
+
+
+
 
 
     public String peopleMood() {
