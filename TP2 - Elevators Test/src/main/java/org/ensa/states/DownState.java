@@ -7,16 +7,17 @@ public class DownState implements ElevatorState {
 
     @Override
     public void moveUp(Elevator elevator) {
-        System.out.println("cannot move up while elevator is going down");
+        elevator.setState(new UpState());
+        elevator.moveUp();
     }
 
     @Override
     public void moveDown(Elevator elevator) {
-        System.out.println("Elevator is moving down");
+        elevator.decrementFloor();
     }
 
     @Override
     public void stop(Elevator elevator) {
-        System.out.println("Elevator is at floor " + elevator.getCurrentFloor());
+        elevator.setState(new RestingState());
     }
 }
