@@ -15,27 +15,45 @@ public class War {
 
     public void prepareAttack() {
         for (KingDom kingdom : kingdoms) {
-            int totalSoldiers = kingdom.currentPower();
-            int soldiersToMove = totalSoldiers / 2; // Move 50% of the total power
+            int soldiersOnEdges = kingdom.getSoldiersOnEdges();
+            int totalSoldiersInCities = kingdom.currentPower() - soldiersOnEdges; // Total soldiers in cities
+            int soldiersToMove = totalSoldiersInCities / 2; // Move 50% of the soldiers in cities
+
+            System.out.println("Total soldiers in cities: " + totalSoldiersInCities);
+            System.out.println("Soldiers to move: " + soldiersToMove);
 
             // Keep track of how many soldiers have been moved
             int soldiersMoved = 0;
 
-            // Update soldiers in each city and calculate soldiers on edges
+            // Update soldiers in each city
             for (Country country : kingdom.getCountries()) {
                 for (City city : country.getCities()) {
                     int citySoldiers = city.getSoldiers();
-                    if (citySoldiers > 0 && soldiersMoved < soldiersToMove) {
+                    System.out.println("Current city soldiers: " + citySoldiers);
+
+                    // Only move soldiers if we still need to move more
+                    if (soldiersMoved < soldiersToMove) {
+                        // Calculate soldiers to move from the current city
                         int soldiersMoving = Math.min(soldiersToMove - soldiersMoved, citySoldiers);
-                        city.setSoldiers(citySoldiers - soldiersMoving); // Reduce soldiers in the city
-                        soldiersMoved += soldiersMoving; // Keep track of total soldiers moved
+
+                        // Reduce soldiers in the city by the moving amount
+                        city.setSoldiers(citySoldiers - soldiersMoving);
+                        soldiersMoved += soldiersMoving; // Update total soldiers moved
+
+                        System.out.println("Moving " + soldiersMoving + " soldiers from city. New count: " + city.getSoldiers());
                     }
                 }
             }
 
+            // Update soldiers on edges after moving
             kingdom.updateSoldiersOnEdges(soldiersMoved);
+            System.out.println("Soldiers moved to edges: " + soldiersMoved);
+            System.out.println("Total soldiers on edges after move: " + kingdom.getSoldiersOnEdges());
         }
     }
+
+
+
 
 
 

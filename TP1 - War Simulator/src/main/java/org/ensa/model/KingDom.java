@@ -49,9 +49,8 @@ public class KingDom {
 
 
     public int currentPower() {
-        int totalPower = 0; // Start with zero
+        int totalPower = 0;
 
-        // Add soldiers from each country and its cities
         for (Country country : countries) {
             for (City city : country.getCities()) {
                 totalPower += city.getSoldiers(); // Only add city soldiers
