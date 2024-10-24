@@ -3,7 +3,6 @@ package org.ensa.models;
 import lombok.Getter;
 import lombok.Setter;
 import org.ensa.states.RestingState;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,24 +12,24 @@ public class Elevator {
     private String id;
     private int currentFloor;
     private ElevatorState state;
-    private Set<Integer> stopFloors = new HashSet<>(); // Store floors to stop at
+    private Set<Integer> stopFloors = new HashSet<>();
 
     public Elevator(String id, int currentFloor) {
         this.id = id;
         this.currentFloor = currentFloor;
-        this.state = new RestingState(); // Default to resting
+        this.state = new RestingState();
     }
 
     public void moveUp() {
-        state.moveUp(this);  // Delegate to state
+        state.moveUp(this);
     }
 
     public void moveDown() {
-        state.moveDown(this);  // Delegate to state
+        state.moveDown(this);
     }
 
     public void stopAt(int floor) {
-        stopFloors.add(floor); // Add floor to stop list
+        stopFloors.add(floor);
     }
 
     public void removeStop(int floor) {
