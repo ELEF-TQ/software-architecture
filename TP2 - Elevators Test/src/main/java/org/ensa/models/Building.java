@@ -2,7 +2,6 @@ package org.ensa.models;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +25,6 @@ public class Building {
     public String requestElevator(int i) {
         Elevator closestElevator = null;
         int minDistance = Integer.MAX_VALUE;
-
-        // Delegate the distance calculation to the elevators and their states
         for (Elevator elevator : elevators) {
             int currentDistance = elevator.calculateDistance(numberOfFloors);
             if (currentDistance < minDistance) {
