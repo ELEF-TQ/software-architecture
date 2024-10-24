@@ -19,7 +19,13 @@ public class RestingState implements ElevatorState {
     }
 
     @Override
-    public void stop(Elevator elevator) {
-
+    public int calculateDistance(Elevator elevator, int targetFloor) {
+        return Math.abs(elevator.getCurrentFloor() - targetFloor);
     }
+
+//    @Override
+//    public void stop(Elevator elevator) {
+//    }
+
+
 }

@@ -2,10 +2,6 @@ package org.ensa.models;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.ensa.states.DownState;
-import org.ensa.states.RestingState;
-import org.ensa.states.UpState;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,27 +18,29 @@ public class Building {
             String[] parts = info.split(":");
             String id = parts[0];
             int currentFloor = Integer.parseInt(parts[1]);
+            // Elevators are initialized with a resting state by default
             elevators.add(new Elevator(id, currentFloor));
         }
     }
 
-    /** First available elevator to top floor **/
+    /** First available elevator to the top floor **/
     public String requestElevator() {
         Elevator closestElevator = null;
         int minDistance = Integer.MAX_VALUE;
+
+        // Delegate the distance calculation to each elevator's state
         for (Elevator elevator : elevators) {
-            int currentDistance = Math.abs(elevator.getCurrentFloor() - numberOfFloors);
-            if (elevator.getState() instanceof UpState || elevator.getState() instanceof RestingState) {
-                if (currentDistance < minDistance) {
-                    closestElevator = elevator;
-                    minDistance = currentDistance;
-                }
+            int currentDistance = elevator.calculateDistance(numberOfFloors);
+            if (currentDistance < minDistance) {
+                closestElevator = elevator;
+                minDistance = currentDistance;
             }
         }
+
         return closestElevator != null ? closestElevator.getId() : null;
     }
 
-    /** move the elevator UP or DOWN **/
+    /** Move the elevator UP or DOWN **/
     public void move(String elevatorId, String direction) {
         for (Elevator elevator : elevators) {
             if (elevator.getId().equals(elevatorId)) {

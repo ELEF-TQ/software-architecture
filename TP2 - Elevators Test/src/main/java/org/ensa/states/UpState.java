@@ -17,8 +17,19 @@ public class UpState implements ElevatorState {
     }
 
     @Override
-    public void stop(Elevator elevator) {
-        elevator.setState(new RestingState());
+    public int calculateDistance(Elevator elevator, int targetFloor) {
+        if (targetFloor >= elevator.getCurrentFloor()) {
+            return targetFloor - elevator.getCurrentFloor();
+        }
+        // A moving-up elevator cannot serve lower floors until it reaches the top
+        return Integer.MAX_VALUE;
     }
+
+//    @Override
+//    public void stop(Elevator elevator) {
+//        elevator.setState(new RestingState());
+//    }
+
+
 
 }
