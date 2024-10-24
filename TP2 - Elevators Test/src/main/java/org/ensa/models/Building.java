@@ -23,7 +23,7 @@ public class Building {
         }
     }
 
-    public String requestElevator() {
+    public String requestElevator(int i) {
         Elevator closestElevator = null;
         int minDistance = Integer.MAX_VALUE;
 

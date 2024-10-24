@@ -9,7 +9,7 @@ public class ElevatorsTest {
         int numberOfFloors = 10;
         Building building = new Building(numberOfFloors, "id1:1", "id2:6");
         // "[elevator_id]:[elevator_current_floor]"
-        String idOfFirstAvailableElevator = building.requestElevator();
+        String idOfFirstAvailableElevator = building.requestElevator(5);
         // a request is by default from top floor
         assertEquals("id2", idOfFirstAvailableElevator);
     }
@@ -19,7 +19,7 @@ public class ElevatorsTest {
         Building building = new Building(10, "id1:1", "id2:6");
         building.move("id2", "DOWN");
         // tell the elevator "id2" to move "DOWN".
-        String idOfFirstAvailableElevator = building.requestElevator();
+        String idOfFirstAvailableElevator = building.requestElevator(5);
         assertEquals("id1", idOfFirstAvailableElevator);
     }
 
@@ -29,7 +29,7 @@ public class ElevatorsTest {
         Building building = new Building(10, "id1:1", "id2:6");
         building.move("id1", "UP");
         building.move("id2", "DOWN");
-        String idOfFirstAvailableElevator = building.requestElevator();
+        String idOfFirstAvailableElevator = building.requestElevator(5);
         assertEquals("id1", idOfFirstAvailableElevator);
     }
 
@@ -39,7 +39,7 @@ public class ElevatorsTest {
         Building building = new Building(10, "id1:1", "id2:6", "id3:5");
         building.move("id1", "UP");
         building.move("id2", "DOWN");
-        String idOfFirstAvailableElevator = building.requestElevator();
+        String idOfFirstAvailableElevator = building.requestElevator(5);
         assertEquals("id3", idOfFirstAvailableElevator);
     }
 
@@ -51,15 +51,15 @@ public class ElevatorsTest {
         building.move("id2", "DOWN");
         building.move("id3", "UP");
         building.stopAt("id3", 7); // request elevator "id3" to stop at level 7
-        String idOfFirstAvailableElevator = building.requestElevator();
+        String idOfFirstAvailableElevator = building.requestElevator(5);
         assertEquals("id1", idOfFirstAvailableElevator);
     }
 
 
-//    @Test
-//    public void can_request_elevator_in_middle_of_building() {
-//        Building building = new Building(10, "id1:1", "id2:6");
-//        String idOfFirstAvailableElevator = building.requestElevator(5); // the request is made at the 5th floor
-//        assertEquals("id2", idOfFirstAvailableElevator); // "id2" is the closest elevator to 5th floor
-//    }
+    @Test
+    public void can_request_elevator_in_middle_of_building() {
+        Building building = new Building(10, "id1:1", "id2:6");
+        String idOfFirstAvailableElevator = building.requestElevator(5); // the request is made at the 5th floor
+        assertEquals("id2", idOfFirstAvailableElevator); // "id2" is the closest elevator to 5th floor
+    }
 }
