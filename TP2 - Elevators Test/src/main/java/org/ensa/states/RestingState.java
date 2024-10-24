@@ -23,9 +23,9 @@ public class RestingState implements ElevatorState {
         return Math.abs(elevator.getCurrentFloor() - targetFloor);
     }
 
-//    @Override
-//    public void stop(Elevator elevator) {
-//    }
+    @Override
+    public void stop(Elevator elevator) {
+    }
 
 
 }

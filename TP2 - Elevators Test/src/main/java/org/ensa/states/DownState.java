@@ -25,10 +25,10 @@ public class DownState implements ElevatorState {
         return Integer.MAX_VALUE;
     }
 
-//    @Override
-//    public void stop(Elevator elevator) {
-//        elevator.setState(new RestingState());
-//    }
+    @Override
+    public void stop(Elevator elevator) {
+        elevator.setState(new RestingState());
+    }
 
 
 

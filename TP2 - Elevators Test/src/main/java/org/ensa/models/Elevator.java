@@ -4,17 +4,21 @@ import lombok.Getter;
 import lombok.Setter;
 import org.ensa.states.RestingState;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 public class Elevator {
     private String id;
     private int currentFloor;
     private ElevatorState state;
+    private Set<Integer> stopFloors = new HashSet<>(); // Store floors to stop at
 
     public Elevator(String id, int currentFloor) {
         this.id = id;
         this.currentFloor = currentFloor;
-        this.state = new RestingState();
+        this.state = new RestingState(); // Default to resting
     }
 
     public void moveUp() {
@@ -25,16 +29,28 @@ public class Elevator {
         state.moveDown(this);  // Delegate to state
     }
 
-    public void decrementFloor() {
-        // Safely decrement the floor without recursive calls
-        if (currentFloor > 0) {
-            currentFloor--;
-        }
+    public void stopAt(int floor) {
+        stopFloors.add(floor); // Add floor to stop list
+    }
+
+    public void removeStop(int floor) {
+        stopFloors.remove(floor);
     }
 
     public void incrementFloor() {
-        // Safely increment the floor
         currentFloor++;
+        if (stopFloors.contains(currentFloor)) {
+            stopFloors.remove(currentFloor); // Remove stop if reached
+            state = new RestingState(); // Change state to Resting
+        }
+    }
+
+    public void decrementFloor() {
+        currentFloor--;
+        if (stopFloors.contains(currentFloor)) {
+            stopFloors.remove(currentFloor); // Remove stop if reached
+            state = new RestingState(); // Change state to Resting
+        }
     }
 
     public int calculateDistance(int targetFloor) {
